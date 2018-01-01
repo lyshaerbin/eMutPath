@@ -27,3 +27,31 @@ RoxygenNote: 6.0.1
 NeedsCompilation: no
 
 Packaged: 2017-12-18 14:19:49 UTC; YLi42
+
+Usages:
+
+Input.exp=GetExampleData(exampleData="Exp.input")
+
+#' #obtain the sample label
+
+Cancer_s=GetExampleData(exampleData="Cancer_s")
+
+Normal_s=GetExampleData(exampleData="Normal_s")
+
+#' #obtain the protein interaction network
+
+Network=GetExampleData(exampleData="network")
+
+#' #obtain the mutation data
+
+Mut=GetExampleData(exampleData="mut")
+
+DysCN=EdgeticDys_CN(Input.exp,Network,thr=0.01)
+
+Input.exp2=Input.exp[,Cancer_s]
+
+DysC=EdgeticDys_CN(Input.exp2,Network,thr=0.01)
+
+Dys.net=EdgeticDys_both(DysCN,DysC)
+
+Driver.mut=getEdgeticDriver(Dys.net,Mut,alpha=0.05,n.sim=1000)
